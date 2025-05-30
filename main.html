@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(to right, #E6E6FA, #DEC0F1);
+            color: #333;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h3 {
+            color: #5D3B90;
+            margin: 20px 0;
+        }
+
+        #userArea h3 {
+            background: transparent;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        #subscriptionArea, #queryArea {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 673px;
+        }
+
+        input[type="text"], button {
+            width: auto; /* Adjust based on input */
+            max-width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #BAABDA;
+            border-radius: 4px;
+            background: transparent;
+            color: #333;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #9A85B3; /* Deeper lavender */
+            color: white;
+            border: none;
+            padding: 8px 15px; /* Smaller padding */
+            margin-top: 10px;
+            border-radius: 5px; /* Rounded edges */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 14px; /* Smaller font size */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+        
+        button:hover {
+            background-color: #837AA6; /* Even deeper lavender */
+            transform: scale(1.05); /* Slightly larger on hover */
+        }
+        
+        button:active {
+            transform: scale(0.95); /* Slightly smaller when clicked */
+        }
+        
+        a#logoutLink {
+            color: #9A85B3;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        a#logoutLink:hover {
+            text-decoration: underline;
+        }
+
+        #subscriptionsList, #queryResults {
+            padding: 10px;
+            background-color: #f4f4f4; /* Light gray for contrast */
+            border-radius: 4px;
+        }
+
+        .musicItem {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            overflow: hidden; /* Keeps everything neatly contained within the card */
+        }
+
+        .musicItemImage {
+            flex: 0 0 auto; /* Don't grow or shrink but based on image size */
+            width: 100px; /* Fixed width for the image */
+            height: 100px; /* Fixed height for the image */
+            margin-right: 20px; /* Space between the image and the text */
+            border-radius: 50%; /* Circular image */
+            object-fit: cover; /* Ensures the image covers the area */
+        }
+
+        .musicItemInfo {
+            flex: 1; /* Take up the remaining space */
+        }
+
+        .musicItem h4, .musicItem p {
+            margin: 5px 0;
+        }       
+    </style>
+</head>
+<body>
+    <div id="userArea">
+        <h3>Welcome, <span id="userName">User</span>!</h3>
+    </div>
+
+    <div id="subscriptionArea">
+        <h3>Your Subscriptions</h3>
+        <div id="subscriptionsList">No subscriptions yet.</div>
+    </div>
+
+    <div id="queryArea">
+        <h3>Search for Music</h3>
+        <input type="text" id="title" placeholder="Title">
+        <input type="text" id="year" placeholder="Year">
+        <input type="text" id="artist" placeholder="Artist">
+        <button onclick="queryMusic()">Query</button>
+        <div id="queryResults"></div>
+    </div>
+
+    <a href="index.html" id="logoutLink">Logout</a>
+
+    <script src="main.js"></script>
+</body>
+</html>
