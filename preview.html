@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora — Design Preview (no login needed)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="aurora-grid" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="#"><span class="brand-mark" id="bm"></span> Aurora</a>
+    <div class="nav-user">
+      <div class="who"><small>Signed in as</small><strong>Yeshwant</strong></div>
+      <div class="avatar">Y</div>
+      <button class="btn btn-ghost btn-sm" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+        Log out
+      </button>
+    </div>
+  </header>
+
+  <main class="container page">
+    <section class="hero">
+      <p style="color:var(--accent-soft);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:.8rem;margin-bottom:10px">Design preview · sample data</p>
+      <h1>Find your next <span class="gradient-text">favourite track</span></h1>
+      <p>This page shows the redesigned UI with example data — no sign-in or backend needed. The live app is <code style="color:var(--accent-soft)">index.html</code>.</p>
+    </section>
+
+    <form class="search-card glass" onsubmit="return false">
+      <div class="search-grid">
+        <div class="field"><label for="t">Title</label><input class="input no-icon" id="t" type="text" placeholder="e.g. Bohemian Rhapsody"></div>
+        <div class="field"><label for="y">Year</label><input class="input no-icon" id="y" type="text" placeholder="e.g. 1975"></div>
+        <div class="field"><label for="a">Artist</label><input class="input no-icon" id="a" type="text" placeholder="e.g. Queen"></div>
+        <button class="btn" type="button" onclick="demoToast()"><span class="btn-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17" aria-hidden="true" style="margin-right:7px;vertical-align:-3px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Search</span></button>
+      </div>
+    </form>
+
+    <section class="section">
+      <div class="section-head"><h2>Search results <span class="count-pill">6</span></h2></div>
+      <div class="grid" id="results"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        Your library <span class="count-pill">2</span></h2></div>
+      <div class="grid" id="library"></div>
+    </section>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script>
+    document.getElementById('bm').innerHTML = brandMarkSVG();
+
+    const results = [
+      { title: 'Bohemian Rhapsody', artist: 'Queen', year: 1975, sub: true },
+      { title: 'Wish You Were Here', artist: 'Pink Floyd', year: 1975, sub: false },
+      { title: 'Billie Jean', artist: 'Michael Jackson', year: 1982, sub: false },
+      { title: 'Hotel California', artist: 'Eagles', year: 1976, sub: false },
+      { title: 'Smells Like Teen Spirit', artist: 'Nirvana', year: 1991, sub: true },
+      { title: 'Rolling in the Deep', artist: 'Adele', year: 2010, sub: false },
+    ];
+    const library = [
+      { title: 'Bohemian Rhapsody', artist: 'Queen', year: 1975 },
+      { title: 'Smells Like Teen Spirit', artist: 'Nirvana', year: 1991 },
+    ];
+
+    function card(item, mode) {
+      const subscribed = mode === 'library' || item.sub;
+      const el = document.createElement('article');
+      el.className = 'card';
+      const badge = subscribed ? `<span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:5px"><path d="M20 6 9 17l-5-5"/></svg>In library</span>` : '';
+      let btn;
+      if (mode === 'library') btn = `<button class="btn btn-sm btn-danger">Remove</button>`;
+      else if (subscribed) btn = `<button class="btn btn-sm btn-ghost" disabled>In library</button>`;
+      else btn = `<button class="btn btn-sm">Subscribe</button>`;
+      el.innerHTML = `
+        <div class="card-art">${badge}<img alt="Artwork for ${item.artist}" src="${artistImageUrl(item.artist)}"></div>
+        <div class="card-body">
+          <span class="card-title">${item.title}</span>
+          <span class="card-artist">${item.artist}</span>
+          <span class="card-year">${item.year}</span>
+          <div class="card-actions">${btn}</div>
+        </div>`;
+      attachImageFallback(el.querySelector('img'), item.artist);
+      return el;
+    }
+
+    const r = document.getElementById('results');
+    results.forEach((it, i) => { const c = card(it, 'result'); c.style.animationDelay = (i*45)+'ms'; r.appendChild(c); });
+    const lib = document.getElementById('library');
+    library.forEach((it, i) => { const c = card(it, 'library'); c.style.animationDelay = (i*45)+'ms'; lib.appendChild(c); });
+
+    function demoToast() { showToast('This is a preview — open index.html to use the live app.', 'info', { title: 'Demo only' }); }
+    setTimeout(() => showToast('Welcome to the Aurora design preview.', 'success', { title: 'Looking good' }), 600);
+  </script>
+</body>
+</html>

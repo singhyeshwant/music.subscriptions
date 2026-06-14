@@ -1,111 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: linear-gradient(to right, #E6E6FA, #DEC0F1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            color: #333;
-        }
-
-        form {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            width: 320px;
-            backdrop-filter: blur(10px);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        input[type="email"], input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: none;
-            border-bottom: 2px solid #BAABDA;
-            border-radius: 0;
-            background: transparent;
-            transition: all 0.3s ease-in-out;
-            color: #333;
-        }
-
-        input[type="email"]:focus, input[type="text"]:focus, input[type="password"]:focus {
-            border-bottom-color: #9A85B3;
-            box-shadow: 0 1px 0 0 #9A85B3;
-            outline: none;
-        }
-
-        button {
-            background-color: #9A85B3;
-            color: white;
-            border: none;
-            padding: 12px 0;
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 10px;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #837AA6;
-        }
-        
-        #notification {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 10px;
-            border-radius: 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-            text-align: center;
-            display: none;
-            font-size: 16px;
-        }
-        
-        #notification.fadeOut {
-            opacity: 0;
-            transition: opacity 2s ease-out;
-        }
-                
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#06060a">
+  <title>Aurora — Create account</title>
+  <meta name="description" content="Create your Aurora account and start building your music library.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <div id="notification" style="display: none;"></div>
-    <form id="registerForm">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+  <a class="skip-link" href="#registerForm">Skip to registration form</a>
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="aurora-grid" aria-hidden="true"></div>
 
-        <label for="user_name">Username:</label>
-        <input type="text" id="user_name" name="user_name" required>
+  <main class="auth">
+    <!-- Brand panel -->
+    <section class="auth-brand" aria-label="About Aurora">
+      <div class="auth-brand-inner">
+        <span class="brand">
+          <span class="brand-mark" id="brandMark"></span>
+          Aurora
+        </span>
+        <h1>Start your<br><span class="gradient-text">music library today.</span></h1>
+        <p>Join in seconds. Search a rich catalogue, subscribe to favourites, and keep everything synced to your account.</p>
+        <ul class="auth-features">
+          <li><span class="tick" aria-hidden="true">★</span> Free to join — no card required</li>
+          <li><span class="tick" aria-hidden="true">♪</span> Personal library across sessions</li>
+          <li><span class="tick" aria-hidden="true">☁</span> Secure, AWS-backed storage</li>
+        </ul>
+        <div class="equalizer" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <p class="auth-foot">A project by <strong style="color:var(--text-dim);font-weight:600">Yeshwant Singh</strong> · Backend on AWS — Lambda, API Gateway, S3 &amp; DynamoDB</p>
+    </section>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+    <!-- Form panel -->
+    <section class="auth-form-wrap">
+      <form id="registerForm" class="auth-card glass" novalidate>
+        <span class="brand" style="margin-bottom:22px;">
+          <span class="brand-mark" id="brandMarkMobile"></span> Aurora
+        </span>
+        <h2>Create your account</h2>
+        <p class="sub">It only takes a moment to get started.</p>
 
-        <button type="button" onclick="register()">Register</button>
-        <p id="registerResult"></p>
-    </form>
-    <script src="register.js"></script>
+        <div class="field">
+          <label for="email">Email address</label>
+          <div class="input-wrap">
+            <span class="leading-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m22 7-10 6L2 7"/></svg>
+            </span>
+            <input class="input" type="email" id="email" name="email" autocomplete="email"
+                   placeholder="you@example.com" required aria-describedby="emailMsg">
+          </div>
+          <span class="field-msg" id="emailMsg" role="alert"></span>
+        </div>
+
+        <div class="field">
+          <label for="user_name">Username</label>
+          <div class="input-wrap">
+            <span class="leading-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </span>
+            <input class="input" type="text" id="user_name" name="user_name" autocomplete="username"
+                   placeholder="What should we call you?" required aria-describedby="userMsg">
+          </div>
+          <span class="field-msg" id="userMsg" role="alert"></span>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <span class="leading-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            <input class="input" type="password" id="password" name="password" autocomplete="new-password"
+                   placeholder="Create a strong password" required aria-describedby="passwordMsg strengthLabel">
+            <button type="button" class="toggle-pass" data-target="password" aria-label="Show password" aria-pressed="false"></button>
+          </div>
+          <div class="strength" aria-hidden="false">
+            <div class="strength-bar"><span id="strengthFill"></span></div>
+            <span class="strength-label" id="strengthLabel">Use 8+ characters with letters, numbers & symbols.</span>
+          </div>
+          <span class="field-msg" id="passwordMsg" role="alert"></span>
+        </div>
+
+        <button type="submit" class="btn btn-full" id="registerBtn">
+          <span class="btn-label">Create account</span>
+          <span class="spinner" aria-hidden="true"></span>
+        </button>
+
+        <p class="auth-alt">Already have an account? <a href="index.html">Sign in</a></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/register.js"></script>
 </body>
 </html>
