@@ -176,7 +176,9 @@
         music_info: { title: item.title, artist: item.artist, year: item.year },
       });
       if (data && data.result === 'success') {
-        subscriptions.push({ title: item.title, artist: item.artist, year: item.year });
+        if (!isSubscribed(item.title, item.artist)) {
+          subscriptions.push({ title: item.title, artist: item.artist, year: item.year });
+        }
         renderLibrary();
         showToast(`“${item.title}” added to your library.`, 'success', { title: 'Subscribed' });
       } else {
@@ -246,14 +248,14 @@
     btn.className = 'btn btn-sm js-action';
     btn.innerHTML = '<span class="btn-label"></span><span class="spinner" aria-hidden="true"></span>';
 
+    // Binding is handled entirely inside setActionButton via btn.onclick
+    // (idempotent — avoids stacking duplicate listeners on a single click).
     if (mode === 'library') {
       setActionButton(btn, 'remove', item);
-      btn.addEventListener('click', () => remove(item, btn));
     } else if (subscribed) {
       setActionButton(btn, 'subscribed');
     } else {
       setActionButton(btn, 'subscribe', item);
-      btn.addEventListener('click', () => subscribe(item, btn));
     }
 
     actions.appendChild(btn);
@@ -283,6 +285,7 @@
       btn.classList.add('btn-danger');
       label.innerHTML = iconTrash() + 'Remove';
       btn.setAttribute('aria-label', item ? `Remove ${item.title} by ${item.artist}` : 'Remove');
+      btn.onclick = () => remove(item, btn);
     }
   }
 
