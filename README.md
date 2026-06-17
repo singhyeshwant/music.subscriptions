@@ -1,4 +1,4 @@
-# Aurora — Music Subscriptions (Redesigned)
+# Aurora - Music Subscriptions (Redesigned)
 
 A complete UI/UX overhaul of the music subscription web app. The frontend is a **drop-in replacement** for the original: every API Gateway endpoint, request/response contract, and the S3 image pattern are preserved exactly, so it works against your existing AWS backend with no changes required.
 
@@ -6,11 +6,11 @@ A complete UI/UX overhaul of the music subscription web app. The frontend is a *
 
 The original was a functional but plain three-page app (lavender theme, `alert()` popups, broken image icons, no mobile layout). This redesign keeps the same behaviour and the same AWS stack while delivering a premium, accessible product.
 
-**Design** — A sophisticated dark "music-app" aesthetic: animated aurora background, glassmorphism cards, a custom gradient brand identity (Space Grotesk + Inter type), album-art-forward result cards, and smooth micro-interactions throughout.
+**Design** - A sophisticated dark "music-app" aesthetic: animated aurora background, glassmorphism cards, a custom gradient brand identity (Space Grotesk + Inter type), album-art-forward result cards, and smooth micro-interactions throughout.
 
-**UX** — `alert()` popups replaced with elegant non-blocking toast notifications; skeleton loaders while data loads; friendly empty and error states; loading spinners on buttons; graceful image fallback (artist initial on a gradient) when an S3 photo is missing; live password strength meter and inline validation on the auth forms; show/hide password toggles.
+**UX** - `alert()` popups replaced with elegant non-blocking toast notifications; skeleton loaders while data loads; friendly empty and error states; loading spinners on buttons; graceful image fallback (artist initial on a gradient) when an S3 photo is missing; live password strength meter and inline validation on the auth forms; show/hide password toggles.
 
-**Responsive & accessible** (the requested feature focus) — Mobile-first layout that adapts from a multi-column grid down to phones; semantic HTML landmarks; skip-to-content link; ARIA live regions for results, toasts, and validation; `aria-invalid` + described-by error messaging; visible keyboard focus rings; and full `prefers-reduced-motion` support that disables animation for users who need it.
+**Responsive & accessible** (the requested feature focus) - Mobile-first layout that adapts from a multi-column grid down to phones; semantic HTML landmarks; skip-to-content link; ARIA live regions for results, toasts, and validation; `aria-invalid` + described-by error messaging; visible keyboard focus rings; and full `prefers-reduced-motion` support that disables animation for users who need it.
 
 ## File structure
 
@@ -44,15 +44,15 @@ Base: `https://cnjwhtdnld.execute-api.ap-southeast-2.amazonaws.com/Production`
 
 Artist images: `https://3994442.s3.amazonaws.com/{ArtistNameNoSpaces}.jpg` (unchanged).
 
-## Deploy (same as before — S3 static hosting, free tier)
+## Deploy (same as before - S3 static hosting, free tier)
 
-Upload the contents of this folder to your S3 website bucket (keep the `assets/` subfolders intact — paths are relative):
+Upload the contents of this folder to your S3 website bucket (keep the `assets/` subfolders intact - paths are relative):
 
 ```bash
 aws s3 sync . s3://YOUR-WEBSITE-BUCKET/ --exclude "*.md"
 ```
 
-`index.html` remains the entry point. No build step, no dependencies — just static files and Google Fonts over CDN.
+`index.html` remains the entry point. No build step, no dependencies - just static files and Google Fonts over CDN.
 
 ## Free-tier notes
 
